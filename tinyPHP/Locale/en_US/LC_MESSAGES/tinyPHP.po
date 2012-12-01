@@ -1,0 +1,263 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: tinyPHP version 0.4\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-07-31 14:28-0500\n"
+"PO-Revision-Date: 2012-07-31 14:28-0500\n"
+"Last-Translator: Joshua Parker <josh@7mediaws.org>\n"
+"Language-Team: Joshua Parker <josh@7mediaws.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _t\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: UNITED STATES\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: tinyPHP/Application/Views/footer.php:24
+msgid "2012 All rights reserved."
+msgstr ""
+
+#: tinyPHP/Application/Views/header.php:33
+msgid "Home"
+msgstr ""
+
+#: tinyPHP/Application/Views/header.php:34
+#: tinyPHP/Application/Views/help/index.php:21
+msgid "Help"
+msgstr ""
+
+#: tinyPHP/Application/Views/header.php:37
+msgid "Dashboard"
+msgstr ""
+
+#: tinyPHP/Application/Views/header.php:40
+msgid "Users"
+msgstr ""
+
+#: tinyPHP/Application/Views/header.php:43
+msgid "Logout"
+msgstr ""
+
+#: tinyPHP/Application/Views/header.php:45
+#: tinyPHP/Application/Views/login/index.php:21
+#: tinyPHP/Application/Views/login/index.php:25
+#: tinyPHP/Application/Views/user/edit.php:25
+#: tinyPHP/Application/Views/user/index.php:24
+msgid "Login"
+msgstr ""
+
+#: tinyPHP/Application/Views/error/index.php:24
+msgid "404 Error"
+msgstr ""
+
+#: tinyPHP/Application/Views/error/index.php:25
+msgid "It appears that the page you are looking for is no longer available."
+msgstr ""
+
+#: tinyPHP/Application/Views/error/index.php:26
+msgid "Use the navigation bar above to navigate to a different page."
+msgstr ""
+
+#: tinyPHP/Application/Views/index/index.php:21
+msgid "Index"
+msgstr ""
+
+#: tinyPHP/Application/Views/index/index.php:24
+msgid "This is the main page welcome!"
+msgstr ""
+
+#: tinyPHP/Application/Views/login/index.php:26
+#: tinyPHP/Application/Views/user/edit.php:26
+#: tinyPHP/Application/Views/user/index.php:25
+msgid "Password"
+msgstr ""
+
+#: tinyPHP/Application/Views/user/edit.php:21
+msgid "User: Edit"
+msgstr ""
+
+#: tinyPHP/Application/Views/user/edit.php:27
+#: tinyPHP/Application/Views/user/index.php:26
+msgid "Role"
+msgstr ""
+
+#: tinyPHP/Application/Views/user/edit.php:29
+#: tinyPHP/Application/Views/user/index.php:28
+msgid "Default"
+msgstr ""
+
+#: tinyPHP/Application/Views/user/edit.php:30
+#: tinyPHP/Application/Views/user/index.php:29
+msgid "Admin"
+msgstr ""
+
+#: tinyPHP/Application/Views/user/edit.php:31
+msgid "Owner"
+msgstr ""
+
+#: tinyPHP/Application/Views/user/index.php:21
+msgid "User"
+msgstr ""
+
+#: tinyPHP/Application/Views/user/index.php:44
+msgid "Edit"
+msgstr ""
+
+#: tinyPHP/Application/Views/user/index.php:45
+msgid "Delete"
+msgstr ""
+
+#: tinyPHP/Classes/Controllers/dashboard.php:38
+msgid "Welcome to the dashboard. Unfortunately, there is not much to see here."
+msgstr ""
+
+#: tinyPHP/Classes/Controllers/help.php:29
+msgid "This is the help page."
+msgstr ""
+
+#: tinyPHP/Classes/Libraries/Messages.php:27
+msgid "Your message has been sent and someone will contact you as soon as possible."
+msgstr ""
+
+#: tinyPHP/Classes/Libraries/Messages.php:28
+msgid "Sorry, all fields must be filled in before you can submit the form."
+msgstr ""
+
+#: tinyPHP/Classes/Libraries/Messages.php:29
+msgid "Sorry, your topic could not be posted. Please try again."
+msgstr ""
+
+#: tinyPHP/Classes/Libraries/Messages.php:30
+msgid "You forgot to choose a message to delete. Go back and try again."
+msgstr ""
+
+#: tinyPHP/Classes/Libraries/Messages.php:31
+msgid "Sorry, your reply could not be updated."
+msgstr ""
+
+#: tinyPHP/Classes/Libraries/Messages.php:32
+msgid "Message successfully sent!"
+msgstr ""
+
+#: tinyPHP/Classes/Libraries/Messages.php:33
+msgid "Error, couldn't send PM. Maybe wrong user."
+msgstr ""
+
+#: tinyPHP/Classes/Libraries/Messages.php:34
+msgid "Message successfully deleted!"
+msgstr ""
+
+#: tinyPHP/Classes/Libraries/Messages.php:35
+msgid "Error, couldn't delete PM!"
+msgstr ""
+
+#: tinyPHP/Classes/Libraries/Messages.php:36
+msgid "Your new member has been added and was sent an email with new account details."
+msgstr ""
+
+#: tinyPHP/Classes/Libraries/Messages.php:37
+msgid "Sorry, the new user could not be added. Please try again."
+msgstr ""
+
+#: tinyPHP/Classes/Libraries/Messages.php:38
+msgid "Your news posting has been deleted. Go back to your the main news page."
+msgstr ""
+
+#: tinyPHP/Classes/Libraries/Messages.php:39
+msgid "You forgot to choose a news posting to delete.  Go back to the main news page and try again."
+msgstr ""
+
+#: tinyPHP/Classes/Libraries/Messages.php:40
+msgid "The user has been updated successfully."
+msgstr ""
+
+#: tinyPHP/Classes/Libraries/Messages.php:41
+msgid "The user was not updated, please try again."
+msgstr ""
+
+#: tinyPHP/Classes/Libraries/Messages.php:42
+msgid "News item updated successfully."
+msgstr ""
+
+#: tinyPHP/Classes/Libraries/Messages.php:43
+msgid "An error occurred. Please check your post and try again."
+msgstr ""
+
+#: tinyPHP/Classes/Libraries/Messages.php:44
+msgid "The file you are trying to upload is not a .zip file. Please try again."
+msgstr ""
+
+#: tinyPHP/Classes/Libraries/Messages.php:45
+msgid "Your plugin was uploaded and installed properly."
+msgstr ""
+
+#: tinyPHP/Classes/Libraries/Messages.php:46
+msgid "There was a problem uploading your plugin. Please try again or check the plugin package."
+msgstr ""
+
+#: tinyPHP/Classes/Libraries/Messages.php:47
+msgid "The re-install was successful."
+msgstr ""
+
+#: tinyPHP/Classes/Libraries/Messages.php:48
+msgid "There was an error with the re-install. It is better that you download the full version and overwrite the files on your server manually."
+msgstr ""
+
+#: tinyPHP/Classes/Libraries/Messages.php:49
+msgid "Your system was upgraded to the latest version."
+msgstr ""
+
+#: tinyPHP/Classes/Libraries/Messages.php:50
+msgid "There was an error upgrading to the latest version. It is better that you download the full version and overwrite the files on your server manually."
+msgstr ""
+
+#: tinyPHP/Classes/Libraries/Messages.php:51
+msgid "Sorry, your user type was not added. Please try again."
+msgstr ""
+
+#: tinyPHP/Classes/Libraries/Messages.php:52
+msgid "There was an error uploading the file, please try again!"
+msgstr ""
+
+#: tinyPHP/Classes/Libraries/Messages.php:53
+msgid "File name is not valid or the file was more than "
+msgstr ""
+
+#: tinyPHP/Classes/Libraries/Messages.php:54
+msgid "You profile was updated successfully."
+msgstr ""
+
+#: tinyPHP/Classes/Libraries/Messages.php:55
+msgid "Your profile could not be updated. Please try again."
+msgstr ""
+
+#: tinyPHP/Classes/Libraries/Messages.php:56
+msgid "Your password has been updated."
+msgstr ""
+
+#: tinyPHP/Classes/Libraries/Messages.php:57
+msgid "Sorry, your password cannot be blank."
+msgstr ""
+
+#: tinyPHP/Classes/Libraries/Messages.php:58
+msgid "The project has been added."
+msgstr ""
+
+#: tinyPHP/Classes/Libraries/Messages.php:59
+msgid "Project name, description, type, and email must be filled out before submitting the form."
+msgstr ""
+
+#: tinyPHP/Classes/Libraries/Messages.php:60
+msgid "Your project has been updated."
+msgstr ""
+
+#: tinyPHP/Classes/Libraries/Messages.php:61
+msgid "Your project was unable to be updated. Please try again."
+msgstr ""
+
+#: tinyPHP/Classes/Libraries/Messages.php:62
+msgid "Your username or password was entered incorreclty. Please go back and try again."
+msgstr ""
+

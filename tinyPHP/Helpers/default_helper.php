@@ -1,0 +1,223 @@
+<?php if ( ! defined('BASE_PATH')) exit('No direct script access allowed');
+/**
+ *
+ * Default Helper
+ *  
+ * PHP 5
+ *
+ * tinyPHP(tm) : Simple & Lightweight MVC Framework (http://tinyphp.us/)
+ * Copyright 2012, 7 Media Web Solutions, LLC (http://www.7mediaws.org/)
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright Copyright 2012, 7 Media Web Solutions, LLC (http://www.7mediaws.org/)
+ * @link http://tinyphp.us/ tinyPHP(tm) Project
+ * @since tinyPHP(tm) v 0.1
+ * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
+
+ 	if( !function_exists('imgResize') ) {
+ 		
+		function imgResize($width, $height, $target) {
+			//takes the larger size of the width and height and applies the formula. Your function is designed to work with any image in any size.
+			if ($width > $height) {
+				$percentage = ($target / $width);
+			} else {
+				$percentage = ($target / $height);
+			}
+	
+			//gets the new value and applies the percentage, then rounds the value
+			$width = round($width * $percentage);
+			$height = round($height * $percentage);
+			//returns the new sizes in html image tag format...this is so you can plug this function inside an image tag so that it will set the image to the correct size, without putting a whole script into the tag.
+			return "width=\"$width\" height=\"$height\"";
+		}
+	
+	}
+	
+	// An alternative function of using the echo command.
+	if( !function_exists('_e') ) {
+		
+		function _e($string) {
+			echo $string;
+		}
+	
+	}
+
+	if( !function_exists('clickableLink') ) {
+		
+		function clickableLink($text = '') {
+			$text = preg_replace('#(script|about|applet|activex|chrome):#is', "\\1:", $text);
+			$ret = ' ' . $text;
+			$ret = preg_replace("#(^|[\n ])([\w]+?://[\w\#$%&~/.\-;:=,?@\[\]+]*)#is", "\\1<a href=\"\\2\" target=\"_blank\">\\2</a>", $ret);
+			
+			$ret = preg_replace("#(^|[\n ])((www|ftp)\.[\w\#$%&~/.\-;:=,?@\[\]+]*)#is", "\\1<a href=\"http://\\2\" target=\"_blank\">\\2</a>", $ret);
+			$ret = preg_replace("#(^|[\n ])([a-z0-9&\-_.]+?)@([\w\-]+\.([\w\-\.]+\.)*[\w]+)#i", "\\1<a href=\"mailto:\\2@\\3\">\\2@\\3</a>", $ret);
+			$ret = substr($ret, 1);
+			return $ret;
+		}
+	
+	}
+
+	/**
+ 	* Outputs the html checked attribute.
+ 	*
+ 	* Compares the first two arguments and if identical marks as checked
+ 	*
+ 	*
+ 	* @param mixed $checked One of the values to compare
+ 	* @param mixed $current (true) The other value to compare if not just true
+ 	* @param bool $echo Whether to echo or just return the string
+ 	* @return string html attribute or empty string
+ 	*/
+ 	if( !function_exists('checked') ) {
+ 		
+	 	function checked( $checked, $current = true, $echo = true ) {
+			return checked_selected_helper( $checked, $current, $echo, 'checked' );
+		}
+	
+	}
+
+	/**
+ 	* Outputs the html selected attribute.
+ 	*
+ 	* Compares the first two arguments and if identical marks as selected
+ 	*
+ 	*
+ 	* @param mixed $selected One of the values to compare
+ 	* @param mixed $current (true) The other value to compare if not just true
+ 	* @param bool $echo Whether to echo or just return the string
+ 	* @return string html attribute or empty string
+ 	*/
+ 	if( !function_exists('selected') ) {
+ 		
+	 	function selected( $selected, $current = true, $echo = true ) {
+			return checked_selected_helper( $selected, $current, $echo, 'selected' );
+		}
+	
+	}
+
+	/**
+ 	* Outputs the html disabled attribute.
+ 	*
+ 	* Compares the first two arguments and if identical marks as disabled
+ 	*
+ 	*
+ 	* @param mixed $disabled One of the values to compare
+ 	* @param mixed $current (true) The other value to compare if not just true
+ 	* @param bool $echo Whether to echo or just return the string
+ 	* @return string html attribute or empty string
+ 	*/
+ 	if( !function_exists('disabled') ) {
+ 		
+		function disabled( $disabled, $current = true, $echo = true ) {
+			return checked_selected_helper( $disabled, $current, $echo, 'disabled' );
+		}
+	
+	}
+
+	/**
+ 	* Private helper function for checked, selected, and disabled.
+ 	*
+ 	* Compares the first two arguments and if identical marks as $type
+ 	*
+ 	* @access private
+ 	*
+ 	* @param any $helper One of the values to compare
+ 	* @param any $current (true) The other value to compare if not just true
+ 	* @param bool $echo Whether to echo or just return the string
+ 	* @param string $type The type of checked|selected|disabled we are doing
+ 	* @return string html attribute or empty string
+ 	*/
+ 	if( !function_exists('checked_selected_helper') ) {
+ 		
+	 	function checked_selected_helper( $helper, $current, $echo, $type ) {
+			if ( (string) $helper === (string) $current )
+				$result = " $type='$type'";
+			else
+				$result = '';
+	
+			if ( $echo )
+				echo $result;
+	
+			return $result;
+		}
+	
+	}
+
+	if( !function_exists('tp_hash_password') ) {
+	 	
+		 function tp_hash_password($password) {
+			// By default, use the portable hash from phpass
+			$tp_hasher = new \tinyPHP\Classes\Libraries\PasswordHash(8, FALSE);
+	
+				return $tp_hasher->HashPassword($password);
+		 }
+	 }
+	 
+	 if( !function_exists('tp_check_password') ) {
+	 	
+		 function tp_check_password($password, $hash, $user_id = '') {
+	
+			// If the hash is still md5...
+			if ( strlen($hash) <= 32 ) {
+				$check = ( $hash == md5($password) );
+			if ( $check && $user_id ) {
+				// Rehash using new hash.
+				tp_set_password($password, $memberid);
+				$hash = tp_hash_password($password);
+			}
+			
+			}
+	
+			// If the stored hash is longer than an MD5, presume the
+			// new style phpass portable hash.
+			$tp_hasher = new \tinyPHP\Classes\Libraries\PasswordHash(8, FALSE);
+	
+			$check = $tp_hasher->CheckPassword($password, $hash);
+			
+		 }
+
+	 }
+	 
+	 if( !function_exists('tp_set_password') ) {
+	 	
+		 function tp_set_password( $password, $user_id ) {
+	
+			$hash = tp_hash_password($password);
+			$this->db->update( TP . 'users', array( 'password' => $hash ), array( 'user_id', $user_id ));
+			
+		}
+
+	}
+	 
+	 /**
+	 * Return the full URL to a location on this site
+	 *
+	 * @param string $path to use or FALSE for current path
+	 * @param array $params to append to URL
+	 * @return string
+	 */
+	if( !function_exists('site_url') ) {
+		
+		function site_url($path = NULL, array $args = NULL) {
+			return DOMAIN . ($path ? '/'. trim($path, '/') : PATH)
+				. ($args ? '?'. str_replace('+', '%20', http_build_query($args, TRUE, '&')) : '');
+		}
+	
+	}
+	
+	
+	/**
+	 * Return the current URL with path and query params
+	 *
+	 * @return string
+	 */
+	if( !function_exists('current_url') ) {
+		
+		function current_url() {
+			return DOMAIN . getenv('REQUEST_URI');
+		}
+	
+	}
