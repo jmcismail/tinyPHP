@@ -30,6 +30,6 @@
 			<option value="admin" <?php if($value['role'] == 'admin') echo 'selected'; ?>><?php echo _t( 'Admin' ); ?></option>
 			<option value="owner" <?php if($value['role'] == 'owner') echo 'selected'; ?>><?php echo _t( 'Owner' ); ?></option>
 		</select><br />
-	<label>&nbsp;</label><input type="submit" />
+	<label>&nbsp;</label><input class="btn" type="submit" />
 </form>
 <?php } ?>

@@ -17,11 +17,14 @@
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 ?>
-
+		</div>
+	</div>
 </div>
 
 <div id="footer">
-	&copy; <?php echo _t( '2012 All rights reserved.' ); ?> <a href="http://tinyphp.us/"><img src="<?php echo BASE_URL; ?>static/images/tpowered.png" alt="Powered by tinyPHP" /></a>
+	<div class="container">
+		<p>&copy; <?php echo _t( '2012 All rights reserved.' ); ?> <a href="http://tinyphp.us/"><img src="<?php echo BASE_URL; ?>static/images/tpowered.png" alt="Powered by tinyPHP" /></a></p>
+	</div>
 </div>
 
 </body>

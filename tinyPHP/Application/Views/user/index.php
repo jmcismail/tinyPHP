@@ -28,7 +28,7 @@
 			<option value="default"><?php echo _t( 'Default' ); ?></option>
 			<option value="admin"><?php echo _t( 'Admin' ); ?></option>
 		</select><br />
-	<label>&nbsp;</label><input type="submit" />
+	<label>&nbsp;</label><input class="btn" type="submit" />
 </form>
 
 <hr />

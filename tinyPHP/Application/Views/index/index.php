@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASE_PATH') ) exit('No direct script access allowed');
 /**
  *
- * Main Index View
+ * Login View
  *  
  * PHP 5
  *
@@ -18,8 +18,11 @@
  */
 ?>
 
-<h1><?php echo _t( 'Index' ); ?></h1>
+<h1><?php echo _t( 'Login' ); ?></h1>
 
-<p>
-<?php echo _t( 'This is the main page welcome!' ); ?>
-</p>
+<form action="login/run" method="post">
+	
+	<label><?php echo _t( 'Login' ); ?></label><input type="text" name="login" /><br />
+	<label><?php echo _t( 'Password' ); ?></label><input type="password" name="password" /><br />
+	<label></label><input class="btn" type="submit" value="Submit &raquo;" />
+</form>

@@ -24,5 +24,5 @@
 	
 	<label><?php echo _t( 'Login' ); ?></label><input type="text" name="login" /><br />
 	<label><?php echo _t( 'Password' ); ?></label><input type="password" name="password" /><br />
-	<label></label><input type="submit" />
+	<label></label><input class="btn" type="submit" />
 </form>

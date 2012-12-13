@@ -25,7 +25,7 @@ defined( 'APP_PATH' )			or define( 'APP_PATH', SYS_PATH . APP_FOLDER . DS );
 defined( 'LOCALE_DIR' ) 		or define( 'LOCALE_DIR', SYS_PATH . 'Locale' );
 defined( 'DEFAULT_LOCALE' )		or define( 'DEFAULT_LOCALE', '');
 defined( 'ENCODING' )			or define( 'ENCODING', 'UTF-8');
-defined( 'CURRENT_VERSION' )	or define( 'CURRENT_VERSION', '0.7');
+defined( 'CURRENT_VERSION' )	or define( 'CURRENT_VERSION', '0.8');
 require( SYS_PATH . 'Config/constants.php');
 require( SYS_PATH . 'application.php');
 
