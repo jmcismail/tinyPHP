@@ -22,3 +22,4 @@ The db folder in the root contains a MySQL dump that you can use and load on a d
 * version 0.5 (2012.11.27) - Fixed namespace
 * version 0.6 (2012.11.30) - Removed unnecessary helper files, fixed database table issues, fixed misnamed tables in the test application, and modernized PHPass.
 * version 0.7 (2012.12.01) - More bug fixes
+* version 0.8 (2012.12.13) - A few bug fixes and integration of Twitter Bootstrap
