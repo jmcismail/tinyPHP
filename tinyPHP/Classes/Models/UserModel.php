@@ -1,4 +1,5 @@
 <?php namespace tinyPHP\Classes\Models;
+use \tinyPHP\Classes\Core\DB;
 /**
  *
  * User Model
@@ -21,66 +22,121 @@ if ( ! defined('BASE_PATH') ) exit('No direct script access allowed');
 
 class UserModel {
 	
-	private $db;
+	private $_auth;
 	
 	public function __construct() {
-		$this->db = new \tinyPHP\Classes\Core\MySQLiDriver();
-		$this->db->conn();
+		$this->_auth = new \tinyPHP\Classes\Libraries\Cookies();
 	}
 
 	public function userList() {
-		$q = $this->db->select(TP . 'users', 'id,login,role', null, null);
-		while($r = $q->fetch_assoc()) {
+	    $array = [];
+		$q = DB::inst()->select('user');
+		foreach($q as $r) {
 			$array[] = $r;
 		}
 		return $array;
 	}
 	
-	public function userSingleList($id) {		
-		$q = $this->db->select(TP . "users", "id,login,role", "id = '$id'", null);
-		while($r = $q->fetch_assoc()) {
+	public function userSingleList($id) {
+	    $array = [];
+        $bind = [ ":id" => $id ];	
+		$q = DB::inst()->select('user','userID=:id','userID','userID,login,fname,lname',$bind);
+		foreach($q as $r) {
 			$array[] = $r;
 		}
 		return $array;
 	}
 	
 	public function create($data) {
-		$tp_hasher = new \tinyPHP\Classes\Libraries\PasswordHash(8, FALSE);
+	    $bind = [ 
+	               "login" => $data['login'],
+	               "fname" => $data['fname'],
+	               "lname" => $data['lname'],
+	               "password" => tp_hash_password($data['password'])
+                ];
 		
-		$this->db->insert(TP . 'users', array(
-			$this->db->escape( $data['login'] ),
-			$tp_hasher->HashPassword( $this->db->escape( $data['password'] ) ),
-			$this->db->escape( $data['role'] )
-			),
-			'login,
-			password,
-			role');
+		$q = DB::inst()->insert('user',$bind);
 	}
 	
 	public function editSave($data) {
-		$tp_hasher = new \tinyPHP\Classes\Libraries\PasswordHash(8, FALSE);
-		$pass = $this->db->escape($data['password']);
-		
-		$login = $this->db->escape( $data['login'] );
-		$password = $tp_hasher->HashPassword( $pass );
-		$role = $this->db->escape( $data['role'] );
-		$id = $data['id'];
-		
-		$this->db->query( "UPDATE " . TP . "users SET login='$login',password='$password',role='$role' WHERE id = '$id' ");
+	    $update = [ 
+	               "login" => $data['login'],
+	               "fname" => $data['fname'],
+                   "lname" => $data['lname']
+                  ];
+		$bind = [ ":id" => $data['userID'] ];
+        $q = DB::inst()->update('user',$update,'userID=:id',$bind);
+		if(!empty($data['password'])) {
+			$update = [ "password" => tp_hash_password($data['password'])  ];
+			$q = DB::inst()->update('user',$update,'userID=:id',$bind);
+		}
+	}
+	
+	public function rolePerm($id) {
+        $array = [];
+        $bind = array( ":id" => $id );
+        $q = DB::inst()->select( "user","userID = :id","","userID",$bind );
+        foreach($q as $r) {
+            $array[] = $r;
+        }
+        return $array;
+    }
+    
+    public function runRolePerm($data) {
+        $userID = $data['userID'];      
+        
+        if (isset($_POST['action'])) {
+            switch($_POST['action']) {
+                case 'saveRoles':
+                    foreach ($_POST as $k => $v) {
+                        if (substr($k,0,5) == "role_") {
+                            $roleID = str_replace("role_","",$k);
+                            if ($v == '0' || $v == 'x') {
+                                $strSQL = sprintf("DELETE FROM `user_roles` WHERE `userID` = %u AND `roleID` = %u",$userID,$roleID);
+                            } else {
+                                $strSQL = sprintf("REPLACE INTO `user_roles` SET `userID` = %u, `roleID` = %u, `addDate` = '%s'",$userID,$roleID,date ("Y-m-d H:i:s"));
+                            }
+                            DB::inst()->query($strSQL);
+                        }
+                    }
+                    
+                break;
+                case 'savePerms':
+                    foreach ($_POST as $k => $v) {
+                        if (substr($k,0,5) == "perm_") {
+                            $permID = str_replace("perm_","",$k);
+                            if ($v == 'x') {
+                                $strSQL = sprintf("DELETE FROM `user_perms` WHERE `userID` = %u AND `permID` = %u",$userID,$permID);
+                            } else {
+                                $strSQL = sprintf("REPLACE INTO `user_perms` SET `userID` = %u, `permID` = %u, `value` = %u, `addDate` = '%s'",$userID,$permID,$v,date ("Y-m-d H:i:s"));
+                            }
+                            DB::inst()->query($strSQL);
+                        }
+                    }
+                break;
+            }
+        }
+        redirect($_SERVER['HTTP_REFERER']);
+    }
+	
+	public function runUserPerm($data) {
+		if(count($data['permission']) > 0) {
+			$q = DB::inst()->query( sprintf("REPLACE INTO user_perms SET `userID` = %u, `permission` = '%s'",$data['userID'],Hooks::maybe_serialize($data['permission'])) );
+		} else {
+			$q = DB::inst()->query( sprintf("DELETE FROM user_perms WHERE `userID` = %u",$data['userID']) );
+		}
+		redirect($_SERVER['HTTP_REFERER']);
 	}
 	
 	public function delete($id) {
-		$q = $this->db->query("SELECT role FROM " . TP . "users WHERE id = '$id'");
-		$r = $q->fetch_array();
-
-		if ($r['role'] == 'owner')
-		return false;
-		
-		$this->db->delete(TP . 'users', "id = '$id'");
+	    if($id == $this->_auth->getUserField('userID'))
+            return false;
+	    $bind = [ ":id" => $id ];
+	    $q = DB::inst()->delete('user','userID=:id',$bind);
 	}
 	
 	public function __destruct() {
-		$this->db->disconnect();
-	}
+        DB::inst()->close();
+    }
 	
 }

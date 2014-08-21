@@ -18,11 +18,11 @@
  */
 ?>
 
-<h1><?php echo _t( 'Login' ); ?></h1>
+<h1><?=_t( 'Login' );?></h1>
 
 <form action="login/run" method="post">
 	
-	<label><?php echo _t( 'Login' ); ?></label><input type="text" name="login" /><br />
-	<label><?php echo _t( 'Password' ); ?></label><input type="password" name="password" /><br />
+	<label><?=_t( 'Login' );?></label><input type="text" name="login" required/><br />
+	<label><?=_t( 'Password' );?></label><input type="password" name="password" required/><br />
 	<label></label><input class="btn" type="submit" value="Submit &raquo;" />
 </form>

@@ -21,14 +21,14 @@ if ( ! defined('BASE_PATH')) exit('No direct script access allowed');
 
 class Controller {
 
-	public function __construct() {
-		$this->view = new \tinyPHP\Classes\Core\View();
-	}
-	
-	public function loadModel($name) {			
-			$modelName = ucfirst($name) . 'Model';
-			$modelName = "\\tinyPHP\\Classes\\Models\\".$modelName;
-			$this->model = new $modelName();	
-	}
+    public function __construct() {
+        $this->view = new \tinyPHP\Classes\Core\View();
+    }
+    
+    public function loadModel($name) {          
+            $modelName = ucfirst($name) . 'Model';
+            $modelName = "\\tinyPHP\\Classes\\Models\\".$modelName;
+            $this->model = new $modelName();    
+    }
 
 }

@@ -1,4 +1,5 @@
 <?php namespace tinyPHP\Classes\Controllers;
+use \tinyPHP\Classes\Libraries\Cookies;
 /**
  *
  * Dashboard Controller
@@ -19,30 +20,24 @@
 
 if ( ! defined('BASE_PATH') ) exit('No direct script access allowed');
 
-use \tinyPHP\Classes\Core\Session as Sess;
 class Dashboard extends \tinyPHP\Classes\Core\Controller {
+    
+    private $_auth;
 
 	public function __construct() {
 		parent::__construct();
-		Sess::init();
-		$logged = Sess::get('loggedIn');
-		if ($logged == false) {
-			Sess::destroy();
-			header('location: ../login');
-			exit;
-		}
-		
+        $this->_auth = new \tinyPHP\Classes\Libraries\Cookies();
+        if(!$this->_auth->isUserLoggedIn()) { redirect( BASE_URL ); }
 	}
 	
 	public function index() {
-		$this->view->msg = _t('Welcome to the dashboard. Unfortunately, there is not much to see here.');
+	    $this->view->title = [ _t('Dashboard') ];
+		$this->view->msg = _t('Welcome <b>') . $this->_auth->getUserField('login') . _t( '</b> to the dashboard. Unfortunately, there is not much to see here.');
 		$this->view->render('dashboard/index');
 	}
 	
 	public function logout() {
-		Sess::destroy();
-		header('location: ' . BASE_URL .  'login');
-		exit;
+		$this->model->logout();
 	}
 
 }

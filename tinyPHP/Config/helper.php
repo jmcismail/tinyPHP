@@ -19,4 +19,4 @@
 
 
 $apphelp = new tinyPHP\Classes\Core\Extension();
-$apphelp->helper(array('gettext'));
+$apphelp->helper(array('actions','gettext','default','system','auth','filters'));

@@ -20,12 +20,17 @@
 if ( ! defined('BASE_PATH') ) exit('No direct script access allowed');
 
 class Error extends \tinyPHP\Classes\Core\Controller {
+    
+    private $_auth;
 
 	public function __construct() {
 		parent::__construct();
+        $this->_auth = new \tinyPHP\Classes\Libraries\Cookies();
+        if(!$this->_auth->isUserLoggedIn()) { redirect( BASE_URL ); }
 	}
 	
 	public function index() {
+	    $this->view->title = [ _t('404 Error') ];
 		$this->view->render('error/index');
 	}
 

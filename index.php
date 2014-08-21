@@ -25,8 +25,12 @@ defined( 'APP_PATH' )			or define( 'APP_PATH', SYS_PATH . APP_FOLDER . DS );
 defined( 'LOCALE_DIR' ) 		or define( 'LOCALE_DIR', SYS_PATH . 'Locale' );
 defined( 'DEFAULT_LOCALE' )		or define( 'DEFAULT_LOCALE', '');
 defined( 'ENCODING' )			or define( 'ENCODING', 'UTF-8');
-defined( 'CURRENT_VERSION' )	or define( 'CURRENT_VERSION', '0.8');
-require( SYS_PATH . 'Config/constants.php');
+defined( 'CURRENT_VERSION' )	or define( 'CURRENT_VERSION', '1.0.0');
 require( SYS_PATH . 'application.php');
+$cookieDomain = new \tinyPHP\Classes\Libraries\Cookies;
+defined( 'COOKIE_EXPIRE' )      or define( 'COOKIE_EXPIRE', time()+\tinyPHP\Classes\Libraries\Hooks::get_option('cookieexpire') );
+defined( 'COOKIE_PATH' )        or define( 'COOKIE_PATH', \tinyPHP\Classes\Libraries\Hooks::get_option('cookiepath') );
+defined( 'COOKIE_DOMAIN' )      or define( 'COOKIE_DOMAIN', $cookieDomain->cookieDomain() );
+defined( 'DEFAULT_LOCALE' )     or define( 'DEFAULT_LOCALE', Hooks::get_option('core_locale') );
 
 $app = new \tinyPHP\Classes\Core\Bootstrap();

@@ -21,32 +21,32 @@ if ( ! defined('BASE_PATH')) exit('No direct script access allowed');
 
 class Bootstrap {
 
-	public function __construct() {
+    public function __construct() {
 
-		$url = isset($_GET['url']) ? $_GET['url'] : null;
-		$url = rtrim($url, '/');
-		$url = filter_var($url, FILTER_SANITIZE_URL);
-		$url = explode('/', $url);
-		
-		if (empty($url[0])) {
-			$controller = new \tinyPHP\Classes\Controllers\Index();
-			$controller->index();
-			return false;
-		}
+        $url = isset($_GET['url']) ? $_GET['url'] : null;
+        $url = rtrim($url, '/');
+        $url = filter_var($url, FILTER_SANITIZE_URL);
+        $url = explode('/', $url);
+        
+        if (empty($url[0])) {
+            $controller = new \tinyPHP\Classes\Controllers\Index();
+            $controller->index();
+            return false;
+        }
 
-		$file = SYS_PATH . 'Classes' . DS . 'Controllers' . DS . ucfirst($url[0]) . '.php';
-		if (file_exists($file)) {
-			require $file;
-		} else {
-			$this->error();
-		}
-		
-		$loadController = "\\tinyPHP\\Classes\\Controllers\\".$url[0];
-		$name = $url[0];
-		$controller = new $loadController;
-		$controller->loadModel($name);
-		
-		$length = count($url);
+        $file = SYS_PATH . 'Classes' . DS . 'Controllers' . DS . ucfirst($url[0]) . '.php';
+        if (file_exists($file)) {
+            require($file);
+        } else {
+            $this->error();
+        }
+        
+        $loadController = "\\tinyPHP\\Classes\\Controllers\\".$url[0];
+        $name = $url[0];
+        $controller = new $loadController;
+        $controller->loadModel($name);
+        
+        $length = count($url);
         
         // Make sure the method we are calling exists
         if ($length > 1) {
@@ -76,13 +76,13 @@ class Bootstrap {
             default:
                 $controller->index();
                 break;
-        }	
-	}
-	
-	public function error() {
-		$controller = new \tinyPHP\Classes\Controllers\Error();
-		$controller->index();
-		return false;
-	}
+        }   
+    }
+    
+    public function error() {
+        $controller = new \tinyPHP\Classes\Controllers\Error();
+        $controller->index();
+        return false;
+    }
 
 }

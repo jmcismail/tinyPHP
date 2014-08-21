@@ -21,17 +21,17 @@ if ( ! defined('BASE_PATH') ) exit('No direct script access allowed');
 
 class View {
 
-	public function __construct() {}
+    public function __construct() {}
 
-	public function render($name, $include = false) {
-		if ($include == true) {
-			require( APP_PATH . 'Views' . DS . $name . '.php' );	
-		}
-		else {
-			require( APP_PATH . 'Views' . DS . 'header.php' );
-			require( APP_PATH . 'Views' . DS . $name . '.php' );
-			require( APP_PATH . 'Views' . DS . 'footer.php' );	
-		}
-	}
+    public function render($name, $include = false) {
+        if ($include == true) {
+            require( APP_PATH . 'Views' . DS . $name . '.php' );    
+        }
+        else {
+            require( APP_PATH . 'Views' . DS . 'header.php' );
+            require( APP_PATH . 'Views' . DS . $name . '.php' );
+            require( APP_PATH . 'Views' . DS . 'footer.php' );  
+        }
+    }
 
 }

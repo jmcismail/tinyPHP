@@ -16,14 +16,17 @@
  * @since tinyPHP(tm) v 0.1
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+ob_start();
+ob_implicit_flush(0);
+$cookie = new \tinyPHP\Classes\Libraries\Cookies;
 ?>
 <!doctype html>
 <html>
 <head>
-	<title><?php echo SITE_TITLE; ?></title>
+	<title><?php if(isset($this->title)) { foreach($this->title as $title) { echo $title . ' - ' . SITE_TITLE; } } else { echo SITE_TITLE; } ?></title>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
-	<link rel="stylesheet" href="<?php echo BASE_URL; ?>static/css/bootstrap.css" />
-	<link rel="stylesheet" href="<?php echo BASE_URL; ?>static/css/bootstrap-responsive.css" />
+	<link rel="stylesheet" href="<?=BASE_URL;?>static/css/bootstrap.css" />
+	<link rel="stylesheet" href="<?=BASE_URL;?>static/css/bootstrap-responsive.css" />
 	
 	<style type="text/css">
 
@@ -81,8 +84,6 @@
     </style>
 </head>
 <body>
-
-<?php tinyPHP\Classes\Core\Session::init(); ?>
 	
 	<div id="wrap">
 	<div class="navbar navbar-inverse navbar-fixed-top">
@@ -93,24 +94,20 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="<?php echo BASE_URL; ?>"><?php echo SITE_TITLE; ?></a>
+          <a class="brand" href="<?=BASE_URL;?>"><?=SITE_TITLE;?></a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <?php if (tinyPHP\Classes\Core\Session::get('loggedIn') == false):?>
-				<li><a href="<?php echo BASE_URL; ?>"><?php echo _t( 'Home' ); ?></a></li>
-				<li><a href="<?php echo BASE_URL; ?>help"><?php echo _t( 'Help' ); ?></a></li>
-			<?php endif; ?>	
-			<?php if (tinyPHP\Classes\Core\Session::get('loggedIn') == true):?>
-				<li><a href="<?php echo BASE_URL; ?>dashboard"><?php echo _t( 'Dashboard' ); ?></a></li>
-		
-			<?php if (tinyPHP\Classes\Core\Session::get('role') == 'owner'):?>
-				<li><a href="<?php echo BASE_URL; ?>user"><?php echo _t( 'Users' ); ?></a></li>
-			<?php endif; ?>
-		
-				<li><a href="<?php echo BASE_URL; ?>dashboard/logout"><?php echo _t( 'Logout' ); ?></a></li>
-			<?php else: ?>
-				<li><a href="<?php echo BASE_URL; ?>login"><?php echo _t( 'Login' ); ?></a></li>
-			<?php endif; ?>
+          	<?php if($cookie->isUserLoggedIn()) { ?>
+				<li<?=ae('access_dashboard');?>><a href="<?=BASE_URL;?>"><?=_t( 'Home' );?></a></li>
+				<li<?=ae('access_help_page');?>><a href="<?=BASE_URL;?>help/"><?=_t( 'Help' );?></a></li>
+				<li<?=ae('access_dashboard');?>><a href="<?=BASE_URL;?>dashboard"><?=_t( 'Dashboard' );?></a></li>
+				<li<?=ae('manage_permissions');?>><a href="<?=BASE_URL;?>permission/"><?=_t( 'Permissions' );?></a></li>
+				<li<?=ae('manage_roles');?>><a href="<?=BASE_URL;?>role/"><?=_t( 'Roles' );?></a></li>
+				<li<?=ae('manage_users');?>><a href="<?=BASE_URL;?>user/"><?=_t( 'Users' );?></a></li>
+				<li><a href="<?=BASE_URL;?>dashboard/logout/"><?=_t( 'Logout' );?></a></li>
+			<?php } else { ?>
+				<li><a href="<?=BASE_URL;?>login/"><?=_t( 'Login' );?></a></li>
+			<?php } ?>
             </ul>
           </div><!--/.nav-collapse -->
         </div>

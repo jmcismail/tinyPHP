@@ -23,9 +23,10 @@
 
 <div id="footer">
 	<div class="container">
-		<p>&copy; <?php echo _t( '2012 All rights reserved.' ); ?> <a href="http://tinyphp.us/"><img src="<?php echo BASE_URL; ?>static/images/tpowered.png" alt="Powered by tinyPHP" /></a></p>
+		<p>&copy; <?=_t( '2012 All rights reserved.' );?> <a href="http://tinyphp.us/"><img src="<?=BASE_URL;?>static/images/tpowered.png" alt="Powered by tinyPHP" /></a></p>
 	</div>
 </div>
 
 </body>
 </html>
+<?php print_gzipped_page(); ?>

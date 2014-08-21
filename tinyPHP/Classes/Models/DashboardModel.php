@@ -1,4 +1,5 @@
 <?php namespace tinyPHP\Classes\Models;
+use \tinyPHP\Classes\Core\DB;
 /**
  *
  * Dashboard Model
@@ -21,10 +22,30 @@ if ( ! defined('BASE_PATH') ) exit('No direct script access allowed');
 
 class DashboardModel {
 
-	public function __construct() {}
+	private $_auth;
 	
-	public function account() {
-		// empty method
+	public function __construct() {
+		$this->_auth = new \tinyPHP\Classes\Libraries\Cookies;
+	}
+	
+	/**
+	 * Logs the user out and unsets cookie and database auth_token
+	 *
+	 * @since 1.0.0
+	 * @return bool True if called
+	 * 
+	 */
+	public function logout() {
+		$uname = $this->_auth->getUserField('login');
+        $update = array( "auth_token" => 'NULL' );
+        $bind = array( ":login" => $uname );
+        
+        DB::inst()->update( "user", $update, "login = :login", $bind );
+		
+		$this->_auth->_setcookie("TP_COOKNAME", '', time()-COOKIE_EXPIRE);
+      	$this->_auth->_setcookie("TP_COOKID", '', time()-COOKIE_EXPIRE);
+		$this->_auth->_setcookie("TP_REMEMBER", '', time()-COOKIE_EXPIRE);
+		redirect( BASE_URL );
 	}
 
 }

@@ -17,17 +17,12 @@
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-/* Set this to false in a production environment */
-defined( 'DEVELOPMENT_ENVIRONMENT' )	or define( 'DEVELOPMENT_ENVIRONMENT', TRUE );
-
-defined( 'DB_HOST' )					or define('DB_HOST', 'localhost');
-defined( 'DB_NAME' )					or define('DB_NAME', '');
-defined( 'DB_USER' )					or define('DB_USER', '');
-defined( 'DB_PASS' )					or define('DB_PASS', '');
-defined( 'TP' )							or define('TP' , 'tp_'); // defines the table prefix
-
-/* Always provide a TRAILING SLASH (/) AFTER A PATH */
-defined( 'BASE_URL' )					or define( 'BASE_URL', '' );
-defined( 'SITE_TITLE' )					or define( 'SITE_TITLE', 'User System' );
-defined( 'ADMIN_SLUG' )					or define( 'ADMIN_SLUG', '');
-defined( 'LOGIN_SLUG' )					or define( 'LOGIN_SLUG', '');
+/* Begin choose database based on subdomain and type of installation. */
+defined( 'DSN_PREFIX' )                 or define( 'DSN_PREFIX', 'mysql' );
+defined( 'DB_HOST' )                    or define( 'DB_HOST', 'localhost' );
+defined( 'DB_NAME' )                    or define( 'DB_NAME', 'tphp' );
+defined( 'DB_USER' )                    or define( 'DB_USER', 'root' );
+defined( 'DB_PASS' )                    or define( 'DB_PASS', 'root' );
+defined( 'BASE_URL' )                   or define( 'BASE_URL', 'http://localhost:8888/tphp/' );
+defined( 'SITE_TITLE' )                 or define( 'SITE_TITLE', 'tinyPHP Framework' );
+defined( 'PLUGINS_DIR' )                or define( 'PLUGINS_DIR', APP_PATH . 'Plugins/' );

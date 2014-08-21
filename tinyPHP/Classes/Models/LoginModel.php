@@ -19,41 +19,49 @@
 
 if ( ! defined('BASE_PATH') ) exit('No direct script access allowed');
 
-use \tinyPHP\Classes\Core\Session as Sess;
+use \tinyPHP\Classes\Core\DB;
+use \tinyPHP\Classes\Libraries\Cookies;
 class LoginModel {
-	
-	private $db;
+    
+    private $_auth;
 	
 	public function __construct() {
-		$this->db = new \tinyPHP\Classes\Core\MySQLiDriver();
-		$this->db->conn();
+		$this->_auth = new \tinyPHP\Classes\Libraries\Cookies();
 	}
 	
-	public function run() {
+	public function run($data) {
+	    $array = [];
+        $bind = [ ":login" => $data['user'] ];
 		
-		$user = $this->db->escape( $_POST['login'] );
-		$pass = $this->db->escape( $_POST['password'] );
+		$q = DB::inst()->select("user","login=:login","","*",$bind);
+		foreach($q as $r) {
+		    $array[] = $r;
+		}
+        
+        $cookie = sprintf("data=%s&auth=%s", urlencode($data['user']), urlencode(tp_hash_cookie($data['user'].$data['pass'])));
+        $mac = hash_hmac("sha512", $cookie, rand(22,999999*1000000));
+        $auth = $cookie . '&digest=' . urlencode($mac);
 		
-		$tp_hasher = new \tinyPHP\Classes\Libraries\PasswordHash(8, FALSE);
-		
-		$q = $this->db->query("SELECT id, role, password FROM " . TP . "users WHERE 
-				login = '$user'");
-		$r = $q->fetch_array();
-		
-		if ($tp_hasher->CheckPassword($pass, $r['password'])) {
-			// login
-			Sess::init();
-			Sess::set('role', $r['role']);
-			Sess::set('loggedIn', true);
-			header('location: ../dashboard');
+		if(tp_check_password($data['pass'], $r['password'], $r['userID'])) {
+			if($data['rememberme']) {            
+                /* Now we can set our login cookies. */
+                $this->_auth->_setcookie("TP_COOKNAME", $auth);
+                $this->_auth->_setcookie("TP_COOKID", tp_hash_cookie($r['userID']));
+                $this->_auth->_setcookie("TP_REMEMBER", 'rememberme');
+            } else {                
+                /* Now we can set our login cookies. */
+                $this->_auth->_setcookie("TP_COOKNAME", $auth, time()+86400);
+                $this->_auth->_setcookie("TP_COOKID", tp_hash_cookie($r['userID']), time()+86400);
+            }
+            redirect( BASE_URL . 'dashboard/' );
 		} else {
-			header('location: ../login');
+			redirect( BASE_URL );
 		}
 		
 	}
 	
 	public function __destruct() {
-		$this->db->disconnect();
-	}
+        DB::inst()->close();
+    }
 	
 }

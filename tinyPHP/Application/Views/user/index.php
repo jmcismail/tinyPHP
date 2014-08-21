@@ -18,32 +18,41 @@
  */
 ?>
 
-<h1><?php echo _t( 'User' ); ?></h1>
+<h1><?=_t( 'User' );?></h1>
 
-<form method="post" action="<?php echo BASE_URL;?>user/create">
-	<label><?php echo _t( 'Login' ); ?></label><input type="text" name="login" /><br />
-	<label><?php echo _t( 'Password' ); ?></label><input type="text" name="password" /><br />
-	<label><?php echo _t( 'Role' ); ?></label>
-		<select name="role">
-			<option value="default"><?php echo _t( 'Default' ); ?></option>
-			<option value="admin"><?php echo _t( 'Admin' ); ?></option>
-		</select><br />
+<form method="post" action="<?=BASE_URL;?>user/create">
+	<label><?=_t( 'Login' );?></label><input type="text" name="login" required/><br />
+	<label><?=_t( 'First Name' );?></label><input type="text" name="fname" required/><br />
+	<label><?=_t( 'Last Name' );?></label><input type="text" name="lname" required/><br />
+	<label><?=_t( 'Password' );?></label><input type="password" name="password" required/><br />
 	<label>&nbsp;</label><input class="btn" type="submit" />
 </form>
 
 <hr />
 
-<table>
+<table class="table table-striped table-bordered table-condensed table-white">
+	<thead>
+		<tr>
+			<th><?=_t( 'User ID' );?></th>
+			<th><?=_t( 'Username' );?></th>
+			<th><?=_t( 'Name' );?></th>
+			<th><?=_t( 'Actions' );?></th>
+		</tr>
+	</thead>
+	<tbody>
 <?php
 	foreach($this->userList as $key => $value) {
 		echo '<tr>';
-		echo '<td>' . $value['id'] . '</td>';
+		echo '<td>' . $value['userID'] . '</td>';
 		echo '<td>' . $value['login'] . '</td>';
-		echo '<td>' . $value['role'] . '</td>';
+		echo '<td>' . get_name($value['userID']) . '</td>';
 		echo '<td>
-				<a href="'.BASE_URL.'user/edit/'.$value['id'].'">' . _t( 'Edit' ) . '</a> 
-				<a href="'.BASE_URL.'user/delete/'.$value['id'].'">' . _t( 'Delete' ) . '</a></td>';
+				<a href="'.BASE_URL.'user/edit/'.$value['userID'].'">' . _t( 'Edit' ) . '</a> | 
+				<a href="'.BASE_URL.'user/role/'.$value['userID'].'">' . _t( 'Role' ) . '</a> | 
+				<a href="'.BASE_URL.'user/perm/'.$value['userID'].'">' . _t( 'Permission' ) . '</a> | 
+				<a href="'.BASE_URL.'user/delete/'.$value['userID'].'">' . _t( 'Delete' ) . '</a></td>';
 		echo '</tr>';
 	}
 ?>
+	</tbody>
 </table>

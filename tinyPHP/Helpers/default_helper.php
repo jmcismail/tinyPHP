@@ -1,4 +1,5 @@
 <?php if ( ! defined('BASE_PATH')) exit('No direct script access allowed');
+use \tinyPHP\Classes\Core\DB;
 /**
  *
  * Default Helper
@@ -145,52 +146,6 @@
 		}
 	
 	}
-
-	if( !function_exists('tp_hash_password') ) {
-	 	
-		 function tp_hash_password($password) {
-			// By default, use the portable hash from phpass
-			$tp_hasher = new \tinyPHP\Classes\Libraries\PasswordHash(8, FALSE);
-	
-				return $tp_hasher->HashPassword($password);
-		 }
-	 }
-	 
-	 if( !function_exists('tp_check_password') ) {
-	 	
-		 function tp_check_password($password, $hash, $user_id = '') {
-	
-			// If the hash is still md5...
-			if ( strlen($hash) <= 32 ) {
-				$check = ( $hash == md5($password) );
-			if ( $check && $user_id ) {
-				// Rehash using new hash.
-				tp_set_password($password, $memberid);
-				$hash = tp_hash_password($password);
-			}
-			
-			}
-	
-			// If the stored hash is longer than an MD5, presume the
-			// new style phpass portable hash.
-			$tp_hasher = new \tinyPHP\Classes\Libraries\PasswordHash(8, FALSE);
-	
-			$check = $tp_hasher->CheckPassword($password, $hash);
-			
-		 }
-
-	 }
-	 
-	 if( !function_exists('tp_set_password') ) {
-	 	
-		 function tp_set_password( $password, $user_id ) {
-	
-			$hash = tp_hash_password($password);
-			$this->db->update( TP . 'users', array( 'password' => $hash ), array( 'user_id', $user_id ));
-			
-		}
-
-	}
 	 
 	 /**
 	 * Return the full URL to a location on this site
@@ -221,3 +176,51 @@
 		}
 	
 	}
+    
+    /**
+     * Return variable if set
+     *
+     * @return mixed
+     */
+    if( !function_exists('isGetSet') ) {
+        
+        function isGetSet($caller) {
+            if(isset($_GET[$caller])) {
+                return $_GET[$caller];
+            }
+        }
+    
+    }
+    
+    /**
+     * Return variable if set
+     *
+     * @return mixed
+     */
+    if( !function_exists('isPostSet') ) {
+        
+        function isPostSet($caller) {
+            if(isset($_POST[$caller])) {
+                return $_POST[$caller];
+            }
+        }
+    
+    }
+    
+    /**
+    * Redirects to another page.
+    *
+    * @since 1.0.0
+    * @param string $location The path to redirect to
+    * @param int $status Status code to use
+    * @return bool False if $location is not set
+    */
+    if( !function_exists('redirect') ) {
+        
+        function redirect($location, $status = 302) {
+            if ( !$location )
+                return false;
+            header("Location: $location", true, $status);
+        }
+        
+    }

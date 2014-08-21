@@ -23,9 +23,11 @@ class Help extends \tinyPHP\Classes\Core\Controller {
 	
 	public function __construct() {
 		parent::__construct();
+        if(!hasPermission('access_help_page')) { redirect( BASE_URL . 'dashboard/' ); }
 	}
 	
 	public function index() {
+	    $this->view->title = [ _t('Help Page') ];
 		$this->view->msg = _t( 'This is the help page.' );
 		$this->view->render('help/index');	
 	}
