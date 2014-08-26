@@ -1,9 +1,11 @@
-# tinyPHP MVC Framework
+[![Gitter chat](https://badges.gitter.im/7mediaws/tinyPHP.png)](https://gitter.im/7mediaws/tinyPHP)
+
+# tinyPHP MVC Framework #
 
 tinyPHP is a simple and lightweight MVC framework. Any person of any PHP level can learn to use this framework in matter of minutes. 
-The db folder located `eduTrac/Application/db/db.sql` contains a MySQL dump that you can use and load on a development server in order to start working with the framework.
+The db folder located `tinyPHP/Application/db/db.sql` contains a MySQL dump that you can use and load on a development server in order to start working with the framework.
 
-## Requirements
+## Requirements ##
 
 * PHP 5.4.x
 * PDO
@@ -11,7 +13,7 @@ The db folder located `eduTrac/Application/db/db.sql` contains a MySQL dump that
 * InnoDB Type
 * mod_rewrite
 
-## Passwords for Test Application:
+## Passwords for Test Application: ##
 
 * stewartm: testing1
 * tinyphp: testing2 (administrator)
@@ -19,7 +21,7 @@ The db folder located `eduTrac/Application/db/db.sql` contains a MySQL dump that
 
 # Changelog and New Features #
 
-## version 1.0.0 (2014.08.21) ## 
+## version 1.0.0 (2014.08.21) ##
 * added new libraries
 * replaced Session with Cookies for login
 * added ACL
@@ -27,10 +29,10 @@ The db folder located `eduTrac/Application/db/db.sql` contains a MySQL dump that
 * fixed internationalization
 * replaced MySQLi DB class with PDO
 
-## version 0.8 (2012.12.13) ## 
+## version 0.8 (2012.12.13) ##
 * A few bug fixes and integration of Twitter Bootstrap
 
-## version 0.7 (2012.12.01) ## 
+## version 0.7 (2012.12.01) ##
 * More bug fixes
 
 ## version 0.6 (2012.11.30) ##
